@@ -1,63 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clima - JavaScript Moderno</title>
 
-    <link href="css/styles.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <link href="css/tailwind.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link href="css/styles.css" rel="stylesheet">
 </head>
-<body>
 
-    <div class="container mx-auto ">
-        <h1 id="titulo" class="text-4xl mt-5 text-white font-bold uppercase text-center">Busca el Clima</h1>
-        <div class="max-w-lg mx-auto ">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-            <div class="p-6 mt-10">
-                <div id="resultado">
-                    <p class="text-center text-white mt-6">Agrega tu ciudad y país, el resultado se mostrará aquí</p>
-                </div>
+    <div class="container mx-auto max-w-lg">
+        <h1 id="titulo" class="text-4xl mb-8 text-white font-bold uppercase text-center">
+            Busca el Clima
+        </h1>
+
+        <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl">
+
+            <!-- Resultado del clima -->
+            <div id="resultado" class="mb-8 min-h-[200px] flex items-center justify-center">
+                <p class="text-center text-white text-lg">
+                    Agrega tu ciudad y país,<br>el resultado se mostrará aquí
+                </p>
             </div>
-            
-            <form id="formulario" class="mt-10 " action="#" method="POST">
-                <div class="mt-5">
-                    <input 
-                        type="text" 
-                        name="ciudad"
-                        id="ciudad"
-                        placeholder="Escribe tu Ciudad"
-                        class="w-full p-2 rounded"
-                    />
+
+            <!-- Formulario de búsqueda -->
+            <form id="formulario" class="space-y-6">
+
+                <!-- Campo de ciudad -->
+                <div>
+                    <label for="ciudad" class="block text-white text-sm font-bold mb-2">
+                        Ciudad
+                    </label>
+                    <input type="text" name="ciudad" id="ciudad" placeholder="Ej: Buenos Aires, Madrid, México DF"
+                      class="w-full p-3 rounded-lg border-2 border-gray-300 focus:border-yellow-500 focus:outline-none transition-colors"
+                      required />
                 </div>
-                <div class="mt-5">
-                    <select 
-                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                        id="pais"
-                    >
-                        <option disabled selected value="">-- Seleccione --</option>
-                        <option value="AR">Argentina</option>
-                        <option value="CO">Colombia</option>
-                        <option value="CR">Costa Rica</option>
-                        <option value="ES">España</option>
-                        <option value="US">Estados Unidos</option>
-                        <option value="MX">México</option>
-                        <option value="PE">Perú</option>
+
+                <!-- Selector de país con todos los países latinoamericanos + España y EEUU -->
+                <div>
+                    <label for="pais" class="block text-white text-sm font-bold mb-2">
+                        País
+                    </label>
+                    <select
+                      class="block appearance-none w-full bg-white border-2 border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-yellow-500 transition-colors cursor-pointer"
+                      id="pais" required>
+                        <option disabled selected value="">-- Seleccione un país --</option>
+
+                        <!-- América Latina -->
+                        <optgroup label="América Latina">
+                            <option value="AR">Argentina</option>
+                            <option value="BO">Bolivia</option>
+                            <option value="BR">Brasil</option>
+                            <option value="CL">Chile</option>
+                            <option value="CO">Colombia</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="CU">Cuba</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="GT">Guatemala</option>
+                            <option value="HN">Honduras</option>
+                            <option value="MX">México</option>
+                            <option value="NI">Nicaragua</option>
+                            <option value="PA">Panamá</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Perú</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="DO">República Dominicana</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="VE">Venezuela</option>
+                        </optgroup>
+
+                        <!-- Otros países -->
+                        <optgroup label="Otros">
+                            <option value="ES">España</option>
+                            <option value="US">Estados Unidos</option>
+                        </optgroup>
                     </select>
+
+                    <!-- Flecha personalizada para el select -->
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                    </div>
                 </div>
 
-                <input 
-                    type="submit"
-                    class="mt-5 w-full bg-yellow-500 p-3  uppercase font-bold cursor-pointer rounded"
-                    value="Obtener Clima"
-                />
-
+                <!-- Botón de envío -->
+                <button type="submit"
+                  class="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-bold py-3 px-4 rounded-lg uppercase tracking-wider transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
+                            </path>
+                        </svg>
+                        Obtener Clima
+                    </span>
+                </button>
             </form>
 
-     
+            <!-- Mensaje de caché (opcional) -->
+            <p class="text-center text-gray-300 text-xs mt-4">
+                Las consultas se guardan en caché por 1 hora
+            </p>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>
